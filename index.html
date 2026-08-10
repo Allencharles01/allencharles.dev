@@ -35,15 +35,6 @@
         <span class="bar"></span>
       </div>
 
-      <nav class="nav-menu" id="nav-menu">
-        <a href="#home" class="nav-link active">Home</a>
-        <a href="#skills" class="nav-link">Skills</a>
-        <a href="#experience" class="nav-link">Experience</a>
-        <a href="#projects" class="nav-link">Projects</a>
-        <a href="#contact" class="nav-link">Contact</a>
-        <span class="nav-indicator"></span>
-      </nav>
-
       <div class="nav-right-group">
         <div class="nav-socials">
           <a href="https://www.linkedin.com/in/allencharles01/" target="_blank" class="icon-btn" aria-label="LinkedIn">
@@ -51,11 +42,11 @@
           </a>
           
           <a href="https://github.com/Allencharles01" target="_blank" class="icon-btn" aria-label="GitHub">
-            <img id="github-icon" src="assets/icons/GitLight01.png" alt="GitHub">
+            <img id="github-icon" class="github-icon-img" src="assets/icons/GitLight01.png" alt="GitHub">
           </a>
           
           <a href="assets/resume/AllenCharles_Resume.pdf" class="icon-btn" download="Allen_Charles_Resume.pdf" aria-label="Resume">
-            <img id="resume-icon" src="assets/icons/ResumeDark.png" alt="Resume">
+            <img id="resume-icon" class="resume-icon-img" src="assets/icons/ResumeDark.png" alt="Resume">
           </a>
         </div>
 
@@ -65,6 +56,45 @@
       </div>
     </div>
   </header>
+
+  <nav class="nav-menu" id="nav-menu">
+    <button id="nav-menu-close" class="nav-menu-close" aria-label="Close navigation">✕</button>
+    
+    <div class="nav-menu-links">
+      <a href="#home" class="nav-link active"><span class="nav-link-icon">🏠</span>Home</a>
+      <a href="#skills" class="nav-link"><span class="nav-link-icon">⚡</span>Skills</a>
+      <a href="#experience" class="nav-link"><span class="nav-link-icon">💼</span>Experience</a>
+      <a href="#projects" class="nav-link"><span class="nav-link-icon">🚀</span>Projects</a>
+      <a href="#contact" class="nav-link"><span class="nav-link-icon">📫</span>Contact</a>
+    </div>
+
+    <div class="nav-menu-footer">
+      <div class="connect-label">Connect</div>
+      <div class="nav-footer-row">
+        <div class="nav-socials-mobile">
+          <a href="https://www.linkedin.com/in/allencharles01/" target="_blank" class="icon-btn" aria-label="LinkedIn">
+            <img src="assets/icons/LinkedIn_Logo.png" alt="LinkedIn">
+          </a>
+          
+          <a href="https://github.com/Allencharles01" target="_blank" class="icon-btn" aria-label="GitHub">
+            <img id="github-icon-mobile" class="github-icon-img" src="assets/icons/GitLight01.png" alt="GitHub">
+          </a>
+          
+          <a href="assets/resume/AllenCharles_Resume.pdf" class="icon-btn" download="Allen_Charles_Resume.pdf" aria-label="Resume">
+            <img id="resume-icon-mobile" class="resume-icon-img" src="assets/icons/ResumeDark.png" alt="Resume">
+          </a>
+        </div>
+
+        <button class="theme-toggle" id="theme-toggle-mobile" aria-label="Toggle theme">
+          <span class="theme-toggle-icon" id="theme-toggle-icon-mobile">🌙</span>
+        </button>
+      </div>
+    </div>
+
+    <span class="nav-indicator"></span>
+  </nav>
+
+  <div id="nav-overlay" class="nav-overlay"></div>
 
   <main>
     <!-- HERO SECTION -->
@@ -342,9 +372,9 @@
           <div class="card-top">
             <div class="project-badge-bar">
               <span class="live-dot-badge">Active Production</span>
-              <span class="proj-cat">Enterprise ERP</span>
             </div>
             <h3>NovaNectar ERP System</h3>
+            <span class="proj-cat">Enterprise ERP</span>
             <p>Collaborative client ERP system developed in a 3-developer team, featuring client-facing modules, RESTful API architecture, and MongoDB Atlas data structures.</p>
           </div>
 
@@ -372,9 +402,9 @@
           <div class="card-top">
             <div class="project-badge-bar">
               <span class="live-dot-badge">Computer Vision</span>
-              <span class="proj-cat">MediaPipe & OpenCV</span>
             </div>
             <h3>GestureFX</h3>
+            <span class="proj-cat">MediaPipe & OpenCV</span>
             <p>Real-time gesture-controlled application using MediaPipe and OpenCV integrated with a Streamlit UI for dynamic motion visual effects and theme switching.</p>
           </div>
 
@@ -405,9 +435,9 @@
           <div class="card-top">
             <div class="project-badge-bar">
               <span class="live-dot-badge">AI Powered</span>
-              <span class="proj-cat">Gradio & Gemini API</span>
             </div>
             <h3>CareerFit AI</h3>
+            <span class="proj-cat">Gradio & Gemini API</span>
             <p>Intelligent resume analyzer with PyMuPDF parsing, Gemini API match scoring, keyword matching, and skill-gap suggestions for job specifications.</p>
           </div>
 
@@ -438,9 +468,9 @@
           <div class="card-top">
             <div class="project-badge-bar">
               <span class="live-dot-badge">Full Stack</span>
-              <span class="proj-cat">MERN Stack</span>
             </div>
             <h3>CodSoft Job Board</h3>
+            <span class="proj-cat">MERN Stack</span>
             <p>Full-stack job board with employer job postings, candidate search/apply workflows, REST APIs, and MongoDB-backed authentication deployed on Render.</p>
           </div>
 
@@ -472,9 +502,9 @@
           <div class="card-top">
             <div class="project-badge-bar">
               <span class="live-dot-badge">Web Application</span>
-              <span class="proj-cat">Real-time Evaluation</span>
             </div>
             <h3>Online Quiz Maker</h3>
+            <span class="proj-cat">Real-time Evaluation</span>
             <p>Full-stack quiz platform featuring timer-based sessions, real-time scoring, and evaluation backed by RESTful APIs on MongoDB Atlas.</p>
           </div>
 
@@ -505,9 +535,9 @@
           <div class="card-top">
             <div class="project-badge-bar">
               <span class="live-dot-badge">Self-Hosted</span>
-              <span class="proj-cat">Linux VPS & Local LLM</span>
             </div>
             <h3>VPS Local AI Model Hosting</h3>
+            <span class="proj-cat">Linux VPS & Local LLM</span>
             <p>Self-hosted local LLM model on a Linux VPS providing a dependency-free, continuously available resume analyzer API alongside a Node.js auto-launcher.</p>
           </div>
 

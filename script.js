@@ -66,69 +66,109 @@ document.addEventListener("DOMContentLoaded", () => {
   /* ------------------------------------------------------------------------
      2. HAMBURGER MENU & DRAWER
      ------------------------------------------------------------------------ */
-  if (hamburger && navMenu) {
+  const closeBtn = document.getElementById("nav-menu-close");
+  const overlay = document.getElementById("nav-overlay");
+
+  function openDrawer() {
+    if (hamburger) hamburger.classList.add("active");
+    if (navMenu) navMenu.classList.add("active");
+    if (overlay) overlay.classList.add("active");
+    document.body.classList.add("nav-open");
+  }
+
+  function closeDrawer() {
+    if (hamburger) hamburger.classList.remove("active");
+    if (navMenu) navMenu.classList.remove("active");
+    if (overlay) overlay.classList.remove("active");
+    document.body.classList.remove("nav-open");
+  }
+
+  if (hamburger) {
     hamburger.addEventListener("click", () => {
-      hamburger.classList.toggle("active");
-      navMenu.classList.toggle("active");
+      const isOpen = navMenu && navMenu.classList.contains("active");
+      if (isOpen) {
+        closeDrawer();
+      } else {
+        openDrawer();
+      }
     });
   }
 
+  if (closeBtn) {
+    closeBtn.addEventListener("click", closeDrawer);
+  }
+
+  if (overlay) {
+    overlay.addEventListener("click", closeDrawer);
+  }
+
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape" && navMenu && navMenu.classList.contains("active")) {
+      closeDrawer();
+    }
+  });
+
   // Close drawer when clicking links
   navLinks.forEach(link => {
-    link.addEventListener("click", () => {
-      if (hamburger && navMenu) {
-        hamburger.classList.remove("active");
-        navMenu.classList.remove("active");
-      }
-    });
+    link.addEventListener("click", closeDrawer);
   });
 
   /* ------------------------------------------------------------------------
      3. THEME TOGGLE LOGIC & ANIMATIONS
      ------------------------------------------------------------------------ */
-  if (toggleBtn) {
-    const toggleIcon = document.getElementById("theme-toggle-icon") || toggleBtn;
+  const themeToggleBtns = document.querySelectorAll(".theme-toggle");
 
-    toggleBtn.addEventListener("click", () => {
-      // Trigger 3D spin & radial glow pulse animations
-      toggleBtn.classList.remove("theme-animating");
-      toggleIcon.classList.remove("icon-spin");
-      // Force reflow
-      void toggleBtn.offsetWidth;
+  function handleThemeToggle(btn) {
+    const btnIcon = btn ? (btn.querySelector(".theme-toggle-icon") || btn) : null;
 
-      toggleBtn.classList.add("theme-animating");
-      toggleIcon.classList.add("icon-spin");
+    // Trigger animation on clicked button
+    if (btn) {
+      btn.classList.remove("theme-animating");
+      if (btnIcon) btnIcon.classList.remove("icon-spin");
+      void btn.offsetWidth; // Force reflow
+      btn.classList.add("theme-animating");
+      if (btnIcon) btnIcon.classList.add("icon-spin");
+    }
 
-      document.body.classList.toggle("light-mode");
-      const isLight = document.body.classList.contains("light-mode");
+    document.body.classList.toggle("light-mode");
+    const isLight = document.body.classList.contains("light-mode");
 
-      // Morph icon halfway through 3D rotation
-      setTimeout(() => {
-        toggleIcon.textContent = isLight ? "☀️" : "🌙";
-      }, 180);
+    // Morph icons on all theme toggle buttons halfway through animation
+    setTimeout(() => {
+      document.querySelectorAll(".theme-toggle-icon").forEach(icon => {
+        icon.textContent = isLight ? "☀️" : "🌙";
+      });
+    }, 180);
 
-      // Clean up animation classes
-      setTimeout(() => {
-        toggleBtn.classList.remove("theme-animating");
-        toggleIcon.classList.remove("icon-spin");
-      }, 500);
-
-      // Icon paths based on light/dark mode
-      const githubIcons = document.querySelectorAll("#github-icon, .github-icon-img");
-      if (isLight) {
-        githubIcons.forEach(icon => icon.src = "assets/icons/GitDark01.png");
-        if (resumeIcon) resumeIcon.src = "assets/icons/Resume01-removebg-preview.png";
-      } else {
-        githubIcons.forEach(icon => icon.src = "assets/icons/GitLight01.png");
-        if (resumeIcon) resumeIcon.src = "assets/icons/ResumeDark.png";
+    // Clean up animation classes
+    setTimeout(() => {
+      if (btn) {
+        btn.classList.remove("theme-animating");
+        if (btnIcon) btnIcon.classList.remove("icon-spin");
       }
+    }, 500);
 
-      initParticles();
-      if (typeof window.triggerLeafAnimation === "function") {
-        window.triggerLeafAnimation();
-      }
-    });
+    // Icon paths for all desktop & mobile copies
+    const githubIcons = document.querySelectorAll("#github-icon, #github-icon-mobile, .github-icon-img");
+    const resumeIcons = document.querySelectorAll("#resume-icon, #resume-icon-mobile, .resume-icon-img");
+
+    if (isLight) {
+      githubIcons.forEach(icon => icon.src = "assets/icons/GitDark01.png");
+      resumeIcons.forEach(icon => icon.src = "assets/icons/Resume01-removebg-preview.png");
+    } else {
+      githubIcons.forEach(icon => icon.src = "assets/icons/GitLight01.png");
+      resumeIcons.forEach(icon => icon.src = "assets/icons/ResumeDark.png");
+    }
+
+    initParticles();
+    if (typeof window.triggerLeafAnimation === "function") {
+      window.triggerLeafAnimation();
+    }
   }
+
+  themeToggleBtns.forEach(btn => {
+    btn.addEventListener("click", () => handleThemeToggle(btn));
+  });
 
   /* ------------------------------------------------------------------------
      4. SCROLL REVEAL (INTERSECTION OBSERVER)
